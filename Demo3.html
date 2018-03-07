@@ -1,0 +1,55 @@
+<!-- /** Ketki Mahajan **/ !-->
+<html>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+   <body>
+      <script>
+         var app = angular.module('myApp', []);
+         app.controller('myAppCtrl', function($scope, $http) {
+           $http.get('https://jsonplaceholder.typicode.com/posts').then(successCallback, errorCallback);
+
+         function successCallback(response){
+               $scope.object = response.data;
+               $(document).ready(function() {
+                 $('#example2').DataTable({
+
+                                            "ajax": {
+                                              url:'https://jsonplaceholder.typicode.com/posts',
+                                              dataSrc: ''
+                                            },
+                                            "columns": [
+                                                          { "data": "userId" },
+                                                          { "data": "id" },
+                                                          { "data": "title" },
+                                                          { "data": "body" }
+                                                        ]
+                                          });
+               });
+         }
+         function errorCallback(error){
+              console.log("Error in $http.get");
+         }
+
+         });
+
+
+      </script>
+
+      <div ng-app="myApp" ng-controller="myAppCtrl">
+        <table id="example2" cellspacing="0" width="100%" class="display">
+         <thead>
+             <tr>
+                 <th>userId</th>
+                 <th>Id</th>
+                 <th>Title</th>
+                 <th>Body</th>
+
+             </tr>
+         </thead>
+         </table>
+      </div>
+   </body>
+</html>
