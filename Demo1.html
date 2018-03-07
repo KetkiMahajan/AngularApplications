@@ -1,0 +1,39 @@
+<!-- /** Ketki Mahajan **/ !-->
+<html>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <body>
+      <script>
+         var app = angular.module('myApp', []);
+         app.controller('myAppCtrl', function($scope, $http) {
+           $http.get('https://jsonplaceholder.typicode.com/posts').then(successCallback, errorCallback);
+
+         function successCallback(response){
+               $scope.object = response.data;
+         }
+         function errorCallback(error){
+              console.log("Error in $http.get");
+         }
+           });
+
+      </script>
+      <div ng-app="myApp" ng-controller="myAppCtrl">
+
+         <div class="container">
+            <h2>Application which accepts ANY valid JSON string and generates the corresponding HTML table</h2>
+         <table class='table table-bordered'>
+            <thead class='bg-primary'>
+               <tr>
+                  <th ng-repeat="(key, value) in object[0]">{{key}}</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="row in object">
+                  <td ng-repeat="cell in row">{{cell}}</td>
+               </tr>
+            </tbody>
+         </table>
+       </div>
+      </div>
+   </body>
+</html>
