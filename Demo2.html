@@ -1,0 +1,41 @@
+<!-- /** Ketki Mahajan **/ !-->
+<html>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <body>
+      <script>
+         var app = angular.module('myApp', []);
+         app.controller('myAppCtrl', function($scope, $http)
+         {
+           $http.get('file:///C:/Users/HP/Desktop/Wednesday/Sample.json').then(successCallback, errorCallback);
+
+           function successCallback(response){
+             $scope.objects = [3];
+             for( var i=0 ; i< response.data.length;i++)
+             {
+               $scope.objects[i]=JSON.parse(response.data[i]);
+             }
+
+            }
+          function errorCallback(error){
+             console.log("Error in $http.get");
+           }
+        });
+    </script>
+
+    <div ng-app="myApp" ng-controller="myAppCtrl">
+
+        <table ng-repeat="tables in objects" class="table table-bordered">
+          <thead class='bg-primary' >
+            <tr><th ng-repeat="(key, value) in tables[0]">{{key}}</th></tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="x in tables"><td ng-repeat="(key, value) in x">{{value}}</td></tr>
+          </tbody>
+        </table>
+    
+    </div>
+   </body>
+</html>
