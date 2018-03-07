@@ -1,10 +1,13 @@
 <!-- /** Ketki Mahajan **/ !-->
 <html>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-
+   <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+      </link>
+   </head>
    <body>
       <script>
          var app = angular.module('myApp', []);
@@ -13,19 +16,13 @@
 
          function successCallback(response){
                $scope.object = response.data;
-               $(document).ready(function() {
-                 $('#example2').DataTable({
 
-                                            "ajax": {
-                                              url:'https://jsonplaceholder.typicode.com/posts',
-                                              dataSrc: ''
-                                            },
-                                            "columns": [
-                                                          { "data": "userId" },
-                                                          { "data": "id" },
-                                                          { "data": "title" },
-                                                          { "data": "body" }
-                                                        ]
+               $(document).ready(function() {
+                 $('#example3').DataTable({
+                                           "paging":   true,
+                                           "ordering": true,
+                                           "info":     true
+
                                           });
                });
          }
@@ -37,19 +34,22 @@
 
 
       </script>
-
       <div ng-app="myApp" ng-controller="myAppCtrl">
-        <table id="example2" cellspacing="0" width="100%" class="display">
-         <thead>
-             <tr>
-                 <th>userId</th>
-                 <th>Id</th>
-                 <th>Title</th>
-                 <th>Body</th>
-
-             </tr>
-         </thead>
-         </table>
+         <div class="container">
+            <table  class='table table-bordered' id="example3" cellspacing="0" width="100%" class="display">
+               <thead class='bg-primary'>
+                  <tr>
+                     <th ng-repeat="(key, value) in object[0]">{{key}}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr ng-repeat="row in object">
+                     <td ng-repeat="cell in row">{{cell}}</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
       </div>
    </body>
 </html>
+
