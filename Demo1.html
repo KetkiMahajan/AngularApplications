@@ -1,39 +1,53 @@
 <!-- /** Ketki Mahajan **/ !-->
 <html>
-   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+      </link>
+   </head>
    <body>
       <script>
          var app = angular.module('myApp', []);
          app.controller('myAppCtrl', function($scope, $http) {
            $http.get('https://jsonplaceholder.typicode.com/posts').then(successCallback, errorCallback);
 
-         function successCallback(response){
+           function successCallback(response){
                $scope.object = response.data;
+               $(document).ready(function(){
+                 $('#ex_table').DataTable({
+                                      "paging":   true,
+                                      "ordering": true,
+                                      "info":     true
+                                  } );
+                });
          }
          function errorCallback(error){
               console.log("Error in $http.get");
          }
-           });
+
+      });
 
       </script>
       <div ng-app="myApp" ng-controller="myAppCtrl">
-
          <div class="container">
             <h2>Application which accepts ANY valid JSON string and generates the corresponding HTML table</h2>
-         <table class='table table-bordered'>
-            <thead class='bg-primary'>
-               <tr>
-                  <th ng-repeat="(key, value) in object[0]">{{key}}</th>
-               </tr>
-            </thead>
-            <tbody>
-               <tr ng-repeat="row in object">
-                  <td ng-repeat="cell in row">{{cell}}</td>
-               </tr>
-            </tbody>
-         </table>
-       </div>
+            <table  class='table table-bordered' id="ex_table" cellspacing="0" width="100%" class="display">
+               <thead class='bg-primary'>
+                  <tr>
+                     <th ng-repeat="(key, value) in object[0]">{{key}}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr ng-repeat="row in object">
+                     <td ng-repeat="cell in row">{{cell}}</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
       </div>
    </body>
 </html>
+
